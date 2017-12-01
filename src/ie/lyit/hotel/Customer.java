@@ -1,11 +1,16 @@
 package ie.lyit.hotel;
 
-public class Customer extends Person{// INHERITANCE - Customer IS-A Person
+import java.io.*;
+import java.util.Collections;
+
+import javax.swing.*;
+import ie.lyit.serialize.CustomerSerializer;
+
+public class Customer extends Person implements Serializable{// INHERITANCE - Customer IS-A Person
 	// Customer has name, address, & phoneNumber from Person
 	private String emailAddress;    // AND emailAddress
-	private int number;			    // AND number
-
-	private static int nextNumber=1;// static for unique number - starts off at 1
+	private int number ;  //Collections.max(CustomerSerializer.Customers);	    // AND number
+    private static int nextNumber=1;// static for unique number - starts off at 1
 	
 	// Default Constructor
 	// Called when object is created like this ==> 
@@ -13,8 +18,8 @@ public class Customer extends Person{// INHERITANCE - Customer IS-A Person
 	public Customer(){
 		super();			// NOTE:Don't need to call super() explicitly.
 		emailAddress=null;
-		// Set number to static nextNumber before incrementing nextNumber
-		number=nextNumber++;
+		// Set number to static nextNumber before incrementing nextNumber	
+		number = nextNumber++;
 	}
 	
 	// Initialization Constructor
@@ -26,7 +31,7 @@ public class Customer extends Person{// INHERITANCE - Customer IS-A Person
 		// Call super class constructor - Passing parameters required by Person ONLY!
 		super(t, fN, sn, address, pNo);
 		// And then initialise Customers own instance variables
-		emailAddress=email;
+		this.emailAddress=email;
 		// And finally set number to static nextNumber before incrementing nextNumber
 		number=nextNumber++;
 	}
@@ -35,7 +40,10 @@ public class Customer extends Person{// INHERITANCE - Customer IS-A Person
 	// Calling Persons toString() method, and adding additional bits
 	@Override
 	public String toString(){
-		return super.toString() + "," + emailAddress;
+		 
+		
+		return "Customer Number :" +number + "\n" + super.toString() + "\n" + "CustomerEmail:" + emailAddress  ;
+		
 	}
 
 	// equals() method
@@ -62,7 +70,56 @@ public class Customer extends Person{// INHERITANCE - Customer IS-A Person
 	}	
 	// You shouldn't be able to setNumber() as it is unique, 
 	// so don't provide a setNumber() method
-	public int getNumber(){
-		return number;
+	public int getNumber()
+	{	
+				   return number;
 	}	
+	
+	
+// to read a customer from user
+	public void read()
+	{
+		//gets the size of the arraylist to return the correct number
+		 int number = CustomerSerializer.Customers.size();
+		 number = number + 1  ;
+		
+		 JTextField txtNumber = new JTextField();
+	     txtNumber.setText("" + this.getNumber());
+         
+	     JTextField txtName = new JTextField();
+		 txtName.requestFocus(); 
+		
+		 JTextField txtTitle = new JTextField();
+		 JTextField txtFirstName = new JTextField();
+		 JTextField txtLastName = new JTextField();	 		 
+		 JTextField txtAddress = new JTextField();	 
+	     JTextField txtPhoneNumber = new JTextField();
+	     JTextField txtEmailAddress = new JTextField();
+
+	      Object[] message = {	     
+	        "Customer Number:", txtNumber,
+	     	"Customer Title", txtTitle,
+	     	"Customer Firstname", txtFirstName,
+	     	"Customer LastName", txtLastName,
+	        "Customer Address:", txtAddress,
+	        "Customer PhoneNumber:", txtPhoneNumber,
+	        "Customer EmailAddress:", txtEmailAddress,	          
+	      };
+
+	      int option = JOptionPane.showConfirmDialog(null, message, "Enter Customer Details", JOptionPane.OK_CANCEL_OPTION);
+	      if (option == JOptionPane.CANCEL_OPTION)
+	      {
+	    	  
+	    	 System.exit(0); // exits the program when cancelled 	    	  
+	      }
+	   	      else if (option == JOptionPane.OK_OPTION){
+            	  
+	    	  super.name.setTitle(txtTitle.getText());
+	          super.name.setFirstName(txtFirstName.getText());	          
+	          super.name.setSurname(txtLastName.getText());	         	        
+	          this.address = txtAddress.getText();
+	          this.phoneNumber = txtPhoneNumber.getText();
+	          this.emailAddress = txtEmailAddress.getText();	    
+	      }       
+		}
 }

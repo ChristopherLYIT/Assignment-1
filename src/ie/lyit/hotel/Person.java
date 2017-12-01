@@ -1,6 +1,7 @@
 package ie.lyit.hotel;
+import java.io.*;
 
-public abstract class Person {
+public abstract class Person implements Serializable {
 	protected Name name; // COMPOSITION - Person HAS-A name
 	protected String address;
 	protected String phoneNumber;
@@ -29,7 +30,7 @@ public abstract class Person {
 	//		then displays address and phoneNumber
 	@Override  // Overrides Object toString()
 	public String toString(){
-		return name + "," + address + "," + phoneNumber;
+		return "Customer Name: "+ name + "\n" + "Customer Address: "+ address + "\n" + "Customer Phone Number: "+ phoneNumber;
 	}	
 	
 	// equals() method

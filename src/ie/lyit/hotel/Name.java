@@ -7,13 +7,14 @@
  * @version 1.0
 **/
 package ie.lyit.hotel;
+import java.io.Serializable;
 
-public class Name {
+public class Name implements Serializable  {
 	// Instance Variables
 	private String title;
-	private String firstName;	
+	private  String firstName;	
 	private String surname;		
-	
+		
 	// Constructors to initialise the Instance Variables
 	// Default Constructor 
 	//	==> Called when a Name object is created as follows - 
